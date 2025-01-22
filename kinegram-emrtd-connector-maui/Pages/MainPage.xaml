@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:locales="clr-namespace:EmrtdConnectorMaui.Resources.Locales"
+             x:Class="EmrtdConnectorMaui.MainPage"
+             NavigationPage.HasNavigationBar="True"
+             Title="eMRTD Connector MAUI">
+
+       <ContentPage.Resources>
+              <ResourceDictionary>
+                     <x:Static x:Key="LocalizedStrings"
+                               Member="locales:LocalizationResourceManager.Instance"/>
+              </ResourceDictionary>
+       </ContentPage.Resources>
+
+       <StackLayout Orientation="Vertical"
+                    Padding="15">
+              <Label Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessIntroduction]}"
+                     FontSize="Body"
+                     Margin="4,0,0,0"/>
+
+              <Label FontSize="Small"
+                     Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessCanPrompt]}"
+                     Margin="4,20,0,0"/>
+              <!-- ReturnType does not work on iOS, it can be fixed by adding respective code -->
+              <Entry x:Name="CanEntry"
+                     MaxLength="6"
+                     Keyboard="Numeric"
+                     Placeholder="317856"
+                     SemanticProperties.Hint="317856"
+                     ReturnType="Done"/>
+              <Button x:Name="CanButton"
+                      Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessCanButtonText]}"
+                      BackgroundColor="#15A180"
+                      TextColor="White"
+                      TextTransform="Uppercase"/>
+
+              <Label FontSize="Small"
+                     Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessDocumentNumberPrompt]}"
+                     Margin="4,40,0,0"/>
+              <Entry x:Name="DocumentNumberEntry"
+                     MaxLength="9"
+                     Keyboard="Text"
+                     ReturnType="Next"
+                     TextTransform="Uppercase"
+                     IsSpellCheckEnabled="False"
+                     Placeholder="NCC-44278"
+                     SemanticProperties.Hint="NCC-44278"/>
+
+              <Label FontSize="Small"
+                     Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessDateOfBirthPrompt]}"
+                     Margin="4,15,0,0"/>
+              <Entry x:Name="DateOfBirthEntry"
+                     Placeholder="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessDatePromptHint]}"
+                     MaxLength="6"
+                     Keyboard="Numeric"
+                     ReturnType="Next"/>
+
+              <Label FontSize="Small"
+                     Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessDateOfExpiryPrompt]}"
+                     Margin="4,15,0,0"/>
+              <Entry x:Name="DateOfExpiryEntry"
+                     Placeholder="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessDatePromptHint]}"
+                     MaxLength="6"
+                     Keyboard="Numeric"
+                     ReturnType="Done"/>
+
+              <Button x:Name="MrzButton"
+                      Text="{Binding Source={StaticResource LocalizedStrings}, Path=[ChipAccessMrzButtonText]}"
+                      BackgroundColor="#15A180"
+                      TextColor="White"
+                      TextTransform="Uppercase"/>
+       </StackLayout>
+
+</ContentPage>

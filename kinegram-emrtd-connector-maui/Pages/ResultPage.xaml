@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:locales="clr-namespace:EmrtdConnectorMaui.Resources.Locales"
+             xmlns:local="clr-namespace:EmrtdConnectorMaui"
+             x:Class="EmrtdConnectorMaui.ResultPage"
+             NavigationPage.HasNavigationBar="True"
+             Title="eMRTD Connector MAUI">
+
+       <ContentPage.Resources>
+              <ResourceDictionary>
+                     <x:Static x:Key="LocalizedStrings"
+                               Member="locales:LocalizationResourceManager.Instance"/>
+              </ResourceDictionary>
+       </ContentPage.Resources>
+
+       <Grid Padding="20"
+             RowSpacing="5"
+             ColumnSpacing="10">
+              <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+
+              <Label Text="documentCode"
+                     Grid.Row="0"
+                     Grid.Column="0"/>
+              <Label Text="{Binding DocumentCode}"
+                     Grid.Row="0"
+                     Grid.Column="1"/>
+
+              <Label Text="documentType"
+                     Grid.Row="1"
+                     Grid.Column="0"/>
+              <Label Text="{Binding DocumentType}"
+                     Grid.Row="1"
+                     Grid.Column="1"/>
+
+              <Label Text="issuingState"
+                     Grid.Row="2"
+                     Grid.Column="0"/>
+              <Label Text="{Binding IssuingState}"
+                     Grid.Row="2"
+                     Grid.Column="1"/>
+
+              <Label Text="primaryIdentifier"
+                     Grid.Row="3"
+                     Grid.Column="0"/>
+              <Label Text="{Binding PrimaryIdentifier}"
+                     Grid.Row="3"
+                     Grid.Column="1"/>
+
+              <Label Text="secondaryIdentifier"
+                     Grid.Row="4"
+                     Grid.Column="0"/>
+              <Label Text="{Binding SecondaryIdentifier}"
+                     Grid.Row="4"
+                     Grid.Column="1"/>
+
+              <Label Text="nationality"
+                     Grid.Row="5"
+                     Grid.Column="0"/>
+              <Label Text="{Binding Nationality}"
+                     Grid.Row="5"
+                     Grid.Column="1"/>
+
+              <Label Text="documentNumber"
+                     Grid.Row="6"
+                     Grid.Column="0"/>
+              <Label Text="{Binding DocumentNumber}"
+                     Grid.Row="6"
+                     Grid.Column="1"/>
+
+              <Label Text="dateOfBirth"
+                     Grid.Row="7"
+                     Grid.Column="0"/>
+              <Label Text="{Binding DateOfBirth}"
+                     Grid.Row="7"
+                     Grid.Column="1"/>
+
+              <Label Text="dateOfExpiry"
+                     Grid.Row="8"
+                     Grid.Column="0"/>
+              <Label Text="{Binding DateOfExpiry}"
+                     Grid.Row="8"
+                     Grid.Column="1"/>
+
+              <Label Text="gender"
+                     Grid.Row="9"
+                     Grid.Column="0"/>
+              <Label Text="{Binding Gender}"
+                     Grid.Row="9"
+                     Grid.Column="1"/>
+
+              <Label Text="facePhoto"
+                     Grid.Row="10"
+                     Grid.Column="0"/>
+              <Image Source="{Binding FacePhoto}"
+                     Grid.Row="10"
+                     Grid.Column="1"
+                     WidthRequest="150"
+                     HorizontalOptions="Start"/>
+       </Grid>
+
+</ContentPage>

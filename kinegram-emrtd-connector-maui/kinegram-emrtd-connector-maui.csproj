@@ -1,0 +1,168 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
+    <ProjectReference Include="..\kinegram-emrtd-connector-maui-ios\kinegram-emrtd-connector-maui-ios.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <!-- <EnableDefaultResourceItems>false</EnableDefaultResourceItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems> -->
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EmrtdConnectorMaui</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- Display name -->
+    <ApplicationTitle>eMRTD Connector MAUI</ApplicationTitle>
+
+    <!-- App Identifier -->
+    <ApplicationId>com.kurzdigital.emrtd-connector-maui</ApplicationId>
+  </PropertyGroup>
+
+  <!-- Debug configuration for Android -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android' and '$(Configuration)' == 'Debug'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <RestoreAdditionalProjectSources>$(MSBuildProjectDirectory)\..\LocalNuGetPackages</RestoreAdditionalProjectSources>
+  </PropertyGroup>
+
+  <!-- <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android' and '$(Configuration)' ==
+  'Debug'">
+    <PackageReference Include="kinegram-emrtd-connector-maui-android" Version="1.1.0" />
+  </ItemGroup> -->
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+    <ProjectReference Include="..\kinegram-emrtd-connector-maui-android\kinegram-emrtd-connector-maui-android.csproj" />
+  </ItemGroup>
+
+  <!-- Release configuration for Android -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android' and '$(Configuration)' == 'Release'">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+
+  <!-- Debug configuration for iPhone -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-ios' and '$(Configuration)' == 'Debug'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+    <MtouchLink>None</MtouchLink>
+    <IPhoneSimulator>false</IPhoneSimulator>
+    <CodesignKey>iPhone Developer: Lars Gossard (43Y8RFA8MU)</CodesignKey>
+    <CodesignProvision>eMRTD Connector MAUI Development</CodesignProvision>
+  </PropertyGroup>
+
+  <!-- Release configuration for iPhone -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-ios' and '$(Configuration)' == 'Release'">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <IPhoneSimulator>false</IPhoneSimulator>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- App Icon -->
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+    <!-- Splash Screen -->
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+    <!-- Images -->
+    <MauiImage Include="Resources\Images\*" />
+    <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+    <!-- Custom Fonts -->
+    <MauiFont Include="Resources\Fonts\*" />
+
+    <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidResource Remove="Platforms\MacCatalyst\**" />
+    <AndroidResource Remove="Platforms\Tizen\**" />
+    <AndroidResource Remove="Platforms\Windows\**" />
+    <Compile Remove="Platforms\MacCatalyst\**" />
+    <Compile Remove="Platforms\Tizen\**" />
+    <Compile Remove="Platforms\Windows\**" />
+    <EmbeddedResource Remove="Platforms\MacCatalyst\**" />
+    <EmbeddedResource Remove="Platforms\Tizen\**" />
+    <EmbeddedResource Remove="Platforms\Windows\**" />
+    <MauiCss Remove="Platforms\MacCatalyst\**" />
+    <MauiCss Remove="Platforms\Tizen\**" />
+    <MauiCss Remove="Platforms\Windows\**" />
+    <MauiXaml Remove="Platforms\MacCatalyst\**" />
+    <MauiXaml Remove="Platforms\Tizen\**" />
+    <MauiXaml Remove="Platforms\Windows\**" />
+    <None Remove="Platforms\MacCatalyst\**" />
+    <None Remove="Platforms\Tizen\**" />
+    <None Remove="Platforms\Windows\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Platforms\Android\Resources\Layout\activity_result.xml" />
+    <None Remove="Platforms\Android\Resources\Values\colors.xml" />
+    <None Remove="Platforms\Android\Resources\Values\strings.xml" />
+    <None Remove="Platforms\Android\Resources\Values\styles.xml" />
+    <None Remove="Platforms\Android\Resources\Values\themes.xml" />
+    <None Remove="Platforms\Android\Resources\xml\nfc_tech_filter.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidResource Include="Platforms\Android\Resources\Layout\activity_reader.xml" />
+    <AndroidResource Include="Platforms\Android\Resources\Layout\activity_result.xml" />
+    <AndroidResource Include="Platforms\Android\Resources\Values\colors.xml" />
+    <AndroidResource Include="Platforms\Android\Resources\Values\strings.xml" />
+    <AndroidResource Include="Platforms\Android\Resources\Values\styles.xml" />
+    <AndroidResource Include="Platforms\Android\Resources\Values\themes.xml" />
+    <AndroidResource Include="Platforms\Android\Resources\xml\nfc_tech_filter.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <!-- iOS specific references -->
+  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
+    <NativeReference Include="Platforms/iOS/Frameworks/KinegramEmrtdConnectorObjC.framework">
+      <Kind>Framework</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
+  </ItemGroup>
+
+  <!-- <ItemGroup>
+    <EmbeddedResource Update="Resources\Locales\Strings.resx">
+      <Generator>MSBuild:Compile</Generator>
+      <StronglyTypedFileName>Resources\Locales\Strings.Designer.cs</StronglyTypedFileName>
+      <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+      <StronglyTypedNamespace>EmrtdConnectorMaui.Resources.Locales</StronglyTypedNamespace>
+      <StronglyTypedClassName>LocaleStrings</StronglyTypedClassName>
+    </EmbeddedResource>
+
+    <EmbeddedResource Update="Resources\Locales\Strings.de.resx">
+      <DependentUpon>Strings.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup> -->
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Locales\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Locales\Strings.de.resx">
+      <DependentUpon>Strings.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

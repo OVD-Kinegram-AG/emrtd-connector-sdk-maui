@@ -1,0 +1,81 @@
+﻿<metadata>
+  <!-- Base namespace transformation -->
+  <attr path="/api/package[@name='com.kinegram.android.emrtdconnector']" name="managedName">
+    EmrtdConnectorAndroid</attr>
+  <attr path="/api/package[@name='com.kinegram.android.emrtdconnector']" name="global">true</attr>
+
+  <!-- Map the interfaces to their correct .NET namespaces -->
+  <attr path="/api/package[@name='androidx.lifecycle']" name="managedName">AndroidX.Lifecycle</attr>
+
+  <!-- Remap interface references -->
+  <attr
+    path="/api/package[@name='com.kinegram.android.emrtdconnector']/class[@name='EmrtdConnectorActivity']/implements[@name='androidx.lifecycle.HasDefaultViewModelProviderFactory']"
+    name="name">AndroidX.Lifecycle.IHasDefaultViewModelProviderFactory</attr>
+  <attr
+    path="/api/package[@name='com.kinegram.android.emrtdconnector']/class[@name='EmrtdConnectorActivity']/implements[@name='androidx.lifecycle.ViewModelStoreOwner']"
+    name="name">AndroidX.Lifecycle.IViewModelStoreOwner</attr>
+  <attr
+    path="/api/package[@name='com.kinegram.android.emrtdconnector']/class[@name='EmrtdConnectorActivity']/implements[@name='androidx.lifecycle.LifecycleOwner']"
+    name="name">AndroidX.Lifecycle.ILifecycleOwner</attr>
+
+  <!-- Ensure proper inheritance -->
+  <attr
+    path="/api/package[@name='com.kinegram.android.emrtdconnector']/class[@name='EmrtdConnectorActivity']"
+    name="extends">AndroidX.AppCompat.App.AppCompatActivity</attr>
+
+  <!---
+  The `IClientHandshakeBuilder` interface only requires a setter.
+        Since setter-only properties are discouraged, we will instead
+        switch the automatically generated properties on
+        `HandshakeImpl1Client` to be plain methods.
+        Error CS0535: `Org.Java_websocket.Handshake.HandshakeImpl1Client'
+        does not implement interface member
+  `Org.Java_websocket.Handshake.IClientHandshakeBuilder.SetResourceDescriptor(string)' -->
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/class[@name='HandshakeImpl1Client']/method[@name='setResourceDescriptor' and count(parameter)=1 and parameter[1][@type='java.lang.String']]"
+    name="propertyName"></attr>
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/class[@name='HandshakeImpl1Client']/method[@name='getResourceDescriptor' and count(parameter)=0]"
+    name="propertyName"></attr>
+
+
+  <!-- The the `IClientHandshake` interface must now also use plain
+       methods to match.
+       Error CS0535: `Org.Java_websocket.Handshake.HandshakeImpl1Client'
+       does not implement interface member
+  `Org.Java_websocket.Handshake.IClientHandshake.ResourceDescriptor.get' -->
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/interface[@name='ClientHandshake']/method[@name='getResourceDescriptor' and count(parameter)=0]"
+    name="propertyName"></attr>
+
+
+  <!---
+  Same property vs. method issue here -->
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/class[@name='HandshakeImpl1Server']/method[@name='getHttpStatus' and count(parameter)=0]"
+    name="propertyName"></attr>
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/class[@name='HandshakeImpl1Server']/method[@name='setHttpStatus' and count(parameter)=1 and parameter[1][@type='short']]"
+    name="propertyName"></attr>
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/class[@name='HandshakeImpl1Server']/method[@name='getHttpStatusMessage' and count(parameter)=0]"
+    name="propertyName"></attr>
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/class[@name='HandshakeImpl1Server']/method[@name='setHttpStatusMessage' and count(parameter)=1 and parameter[1][@type='java.lang.String']]"
+    name="propertyName"></attr>
+
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/interface[@name='ServerHandshake']/method[@name='getHttpStatus' and count(parameter)=0]"
+    name="propertyName"></attr>
+  <attr
+    path="/api/package[@name='org.java_websocket.handshake']/interface[@name='ServerHandshake']/method[@name='getHttpStatusMessage' and count(parameter)=0]"
+    name="propertyName"></attr>
+
+  <remove-node path="/api/package[@name='org.java_websocket.server']/class[@name='WebSocketServer']" />
+  <remove-node
+    path="/api/package[@name='org.java_websocket.server']/class[@name='DefaultSSLWebSocketServerFactory']" />
+
+  <remove-node path="/api/package[@name='org.java_websocket']/interface[@name='WebSocketListener']" />
+  <remove-node
+    path="/api/package[@name='org.java_websocket']/interface[@name='WebSocketServerFactory']" />
+</metadata>
