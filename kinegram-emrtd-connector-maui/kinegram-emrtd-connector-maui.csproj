@@ -55,8 +55,8 @@
     <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
     <MtouchLink>None</MtouchLink>
     <IPhoneSimulator>false</IPhoneSimulator>
-    <CodesignKey>iPhone Developer: Lars Gossard (43Y8RFA8MU)</CodesignKey>
-    <CodesignProvision>eMRTD Connector MAUI Development</CodesignProvision>
+    <!--<CodesignKey></CodesignKey>-->
+    <!--<CodesignProvision></CodesignProvision>-->
   </PropertyGroup>
 
   <!-- Release configuration for iPhone -->
