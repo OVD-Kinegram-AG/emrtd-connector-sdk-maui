@@ -36,6 +36,8 @@ namespace EmrtdConnectorMaui
             string uuid = UUID.RandomUUID().ToString();
 
             var intent = new Intent(context, typeof(EmrtdConnectorActivity));
+            intent.PutExtra(PlatformConstants.CLIENT_ID, ValidationSettings.CLIENT_ID);
+            intent.PutExtra(PlatformConstants.VALIDATION_URI, ValidationSettings.VALIDATION_URI);
             intent.PutExtra(PlatformConstants.VALIDATION_ID_KEY, uuid);
             intent.PutExtra(PlatformConstants.CAN_KEY, can);
             context?.StartActivityForResult(intent, RequestCode);
@@ -47,6 +49,8 @@ namespace EmrtdConnectorMaui
             var uuid = UUID.RandomUUID().ToString();
 
             var intent = new Intent(context, typeof(EmrtdConnectorActivity));
+            intent.PutExtra(PlatformConstants.CLIENT_ID, ValidationSettings.CLIENT_ID);
+            intent.PutExtra(PlatformConstants.VALIDATION_URI, ValidationSettings.VALIDATION_URI);
             intent.PutExtra(PlatformConstants.VALIDATION_ID_KEY, uuid);
             intent.PutExtra(PlatformConstants.DOCUMENT_NUMBER_KEY, documentNumber);
             intent.PutExtra(PlatformConstants.DATE_OF_BIRTH_KEY, dateOfBirth);

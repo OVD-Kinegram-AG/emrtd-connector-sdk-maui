@@ -47,7 +47,7 @@ namespace EmrtdConnectorMaui
 #if ANDROID
                 PlatformService.Instance.NavigateToReader(strCan);
 #elif IOS
-                var wrapper = new KinegramEMRTDWrapper("example_client", "wss://kinegramdocval.lkis.de/ws1/validate");
+                var wrapper = new KinegramEMRTDWrapper(ValidationSettings.CLIENT_ID, ValidationSettings.VALIDATION_URI);
                 wrapper.ReadPassportWithCan(strCan, (passportJson, error) =>
                 {
                     if (error != null)
@@ -77,7 +77,7 @@ namespace EmrtdConnectorMaui
 #if ANDROID
                 PlatformService.Instance.NavigateToReader(strDocumentNumber, strDateOfBirth, strDateOfExpiry);
 #elif IOS
-                var wrapper = new KinegramEMRTDWrapper("example_client", "wss://kinegramdocval.lkis.de/ws1/validate");
+                var wrapper = new KinegramEMRTDWrapper(ValidationSettings.CLIENT_ID, ValidationSettings.VALIDATION_URI);
                 wrapper.ReadPassport(strDocumentNumber, strDateOfBirth, strDateOfExpiry, (passportJson, error) =>
                 {
                     if (error != null)
