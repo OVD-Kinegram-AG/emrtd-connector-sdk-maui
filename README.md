@@ -4,6 +4,9 @@
 
 See also: [Machine Readable Travel Documents](https://www.icao.int/publications/Documents/9303_p1_cons_en.pdf)
 
+For a demonstration on how to integrate the SDK in your .NET MAUI app refer to the code at kinegram-emrtd-connector-maui/Pages
+/MainPage.xaml.cs
+
 ## Setup Overview
 
 You will need the following development software to get the demo app running from source. Any actions documented regarding macOS can be taken on a remote Mac as well.
@@ -73,6 +76,8 @@ This will create the `kinegram-emrtd-connector-maui-android.x.x.x.nupkg` which i
 2. Open the project in Android Studio
 3. Apply your changes to the SDK library
 4. Copy `emrtd-connector-sdk-android/kinegram-emrtd-connector/build/outputs/aar` to `kinegram-emrtd-connector-maui/kinegram-emrtd-connector-maui-android/libs` and recompile the MAUI app.
+
+## Example 
 
 ## Customizing changes to the eMRTD iOS Connector SDK
 
