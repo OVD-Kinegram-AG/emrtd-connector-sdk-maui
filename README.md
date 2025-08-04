@@ -4,8 +4,7 @@
 
 See also: [Machine Readable Travel Documents](https://www.icao.int/publications/Documents/9303_p1_cons_en.pdf)
 
-For a demonstration on how to integrate the SDK in your .NET MAUI app refer to the code at kinegram-emrtd-connector-maui/Pages
-/MainPage.xaml.cs
+>For a demonstration on how to integrate the SDK in your .NET MAUI app please refer to the code at ```kinegram-emrtd-connector-maui/Pages/MainPage.xaml.cs```
 
 ## Setup Overview
 
