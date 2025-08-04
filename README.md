@@ -4,7 +4,11 @@
 
 See also: [Machine Readable Travel Documents](https://www.icao.int/publications/Documents/9303_p1_cons_en.pdf)
 
->For a demonstration on how to integrate the SDK in your .NET MAUI app please refer to the code at ```kinegram-emrtd-connector-maui/Pages/MainPage.xaml.cs```
+The entry point for iOS and Android is ```kinegram-emrtd-connector-maui/Pages/MainPage.xaml.cs```.
+
+Additionally, on Android, there is an [EmrtdConnectorActivity.java](https://github.com/OVD-Kinegram-AG/emrtd-connector-sdk-android/blob/main/kinegram-emrtd-connector/src/main/java/com/kinegram/android/emrtdconnector/EmrtdConnectorActivity.java) you might also want to have a look at. This Activity presents the user a "Ready to Scan" sheet.
+
+On iOS this sheet is presented automatically by the system.
 
 ## Setup Overview
 
