@@ -58,7 +58,7 @@ This will create the `kinegram-emrtd-connector-maui-android.x.x.x.nupkg` which i
 ### Starting the Android app
 
 1. Open a code file in the editor, for example `Pages/MainPage.xaml.cs`
-2. Click the curly brackets in the Status Bar (bottom right), click `Debug Target` and pick your device from the list presented
+2. Click the curly brackets in the Status Bar (bottom right), click `Debug Target` and pick your device from the list presented – if your device does not show up in the list start ADB in your terminal: `adb start-server`
 3. If Visual Studio Code asks for an Android SDK location, pick the one suggested, this usually is `/Users/<username>/Library/Android/sdk` on macOS and `/Users/<username>/AppData/Local/Android/sdk` on Windows
 4. Run the app
     - Click the `Run and Debug` icon on the left and then the `Run and Debug` button
