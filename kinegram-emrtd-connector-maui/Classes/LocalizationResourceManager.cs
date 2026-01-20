@@ -7,7 +7,7 @@ namespace EmrtdConnectorMaui.Resources.Locales
     public class LocalizationResourceManager : INotifyPropertyChanged
     {
         private CultureInfo currentCulture;
-        private ResourceManager resourceManager;
+        private readonly ResourceManager resourceManager;
 
         // Make the constructor public
         public LocalizationResourceManager()
@@ -23,7 +23,7 @@ namespace EmrtdConnectorMaui.Resources.Locales
         public object this[string resourceKey]
             => resourceManager.GetObject(resourceKey, currentCulture) ?? string.Empty;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void SetCulture(CultureInfo culture)
         {

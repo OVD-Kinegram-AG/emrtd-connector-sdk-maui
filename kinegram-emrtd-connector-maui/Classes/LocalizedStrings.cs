@@ -2,7 +2,7 @@ using System.Resources;
 
 public class LocalizedStrings
 {
-    public string this[string key] => _resourceManager.GetString(key);
+    public string? this[string key] => _resourceManager.GetString(key);
 
     private readonly ResourceManager _resourceManager;
 

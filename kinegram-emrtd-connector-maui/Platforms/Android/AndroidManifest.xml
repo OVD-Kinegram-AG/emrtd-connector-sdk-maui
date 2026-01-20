@@ -5,17 +5,5 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme.NoActionBar"
     android:name="android.app.Application">
-    <!--
-    <activity android:name=".MainActivity"
-      android:label="MainActivity"
-      android:launchMode="singleTop"
-      android:theme="@style/MainTheme">
-    </activity>
-    <activity android:name=".ResultActivity"
-      android:label="ResultActivity"
-      android:launchMode="singleTop"
-      android:theme="@style/MainTheme">
-    </activity>
-    -->
   </application>
 </manifest>

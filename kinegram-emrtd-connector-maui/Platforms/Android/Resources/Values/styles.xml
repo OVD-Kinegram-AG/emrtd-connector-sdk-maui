@@ -10,4 +10,7 @@
   <style name="ColoredButton" parent="@style/Widget.AppCompat.Button.Colored">
     <item name="android:textColor">@color/buttonText</item>
   </style>
+
+  <style name="OptOutEdgeToEdgeEnforcement">
+  </style>
 </resources>

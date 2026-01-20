@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Hosting;
 
 namespace EmrtdConnectorMaui
 {

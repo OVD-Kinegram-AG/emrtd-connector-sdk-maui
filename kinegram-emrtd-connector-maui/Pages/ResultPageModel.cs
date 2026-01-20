@@ -11,7 +11,7 @@ public class ResultPageModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private string? _documentType;
-    public string DocumentType
+    public string? DocumentType
     {
         get => _documentType;
         set
@@ -25,7 +25,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _documentCode;
-    public string DocumentCode
+    public string? DocumentCode
     {
         get => _documentCode;
         set
@@ -39,7 +39,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _issuingState;
-    public string IssuingState
+    public string? IssuingState
     {
         get => _issuingState;
         set
@@ -53,7 +53,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _primaryIdentifier;
-    public string PrimaryIdentifier
+    public string? PrimaryIdentifier
     {
         get => _primaryIdentifier;
         set
@@ -67,7 +67,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _secondaryIdentifier;
-    public string SecondaryIdentifier
+    public string? SecondaryIdentifier
     {
         get => _secondaryIdentifier;
         set
@@ -81,7 +81,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _nationality;
-    public string Nationality
+    public string? Nationality
     {
         get => _nationality;
         set
@@ -95,7 +95,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _documentNumber;
-    public string DocumentNumber
+    public string? DocumentNumber
     {
         get => _documentNumber;
         set
@@ -109,7 +109,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _dateOfBirth;
-    public string DateOfBirth
+    public string? DateOfBirth
     {
         get => _dateOfBirth;
         set
@@ -123,7 +123,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _dateOfExpiry;
-    public string DateOfExpiry
+    public string? DateOfExpiry
     {
         get => _dateOfExpiry;
         set
@@ -137,7 +137,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private string? _gender;
-    public string Gender
+    public string? Gender
     {
         get => _gender;
         set
@@ -151,7 +151,7 @@ public class ResultPageModel : INotifyPropertyChanged
     }
 
     private ImageSource? _facePhoto;
-    public ImageSource FacePhoto
+    public ImageSource? FacePhoto
     {
         get => _facePhoto;
         set
@@ -186,7 +186,8 @@ public class ResultPageModel : INotifyPropertyChanged
         _ = LoadImageAsync(emrtdPassport);
 
         PrimaryIdentifier = emrtdPassport.MrzInfo.PrimaryIdentifier;
-        SecondaryIdentifier = string.Join(" ", emrtdPassport.MrzInfo.SecondaryIdentifier);
+        if (SecondaryIdentifier != null && emrtdPassport.MrzInfo.SecondaryIdentifier != null)
+            SecondaryIdentifier = string.Join(" ", emrtdPassport.MrzInfo.SecondaryIdentifier);
         IssuingState = emrtdPassport.MrzInfo.IssuingState;
         DocumentType = emrtdPassport.MrzInfo.DocumentType;
         DocumentCode = emrtdPassport.MrzInfo.DocumentCode;
@@ -198,23 +199,32 @@ public class ResultPageModel : INotifyPropertyChanged
 
         DateTime date;
 
-        date = DateTime.ParseExact(emrtdPassport.MrzInfo.DateOfBirth, "yyMMdd", CultureInfo.InvariantCulture);
-        DateOfBirth = date.ToString("dd.MM.yyyy");
+        if (emrtdPassport.MrzInfo.DateOfBirth != null)
+        {
+            date = DateTime.ParseExact(emrtdPassport.MrzInfo.DateOfBirth, "yyMMdd", CultureInfo.InvariantCulture);
+            DateOfBirth = date.ToString("dd.MM.yyyy");
+        }
 
-        date = DateTime.ParseExact(emrtdPassport.MrzInfo.DateOfExpiry, "yyMMdd", CultureInfo.InvariantCulture);
-        DateOfExpiry = date.ToString("dd.MM.yyyy");
+        if (emrtdPassport.MrzInfo.DateOfExpiry != null)
+        {
+            date = DateTime.ParseExact(emrtdPassport.MrzInfo.DateOfExpiry, "yyMMdd", CultureInfo.InvariantCulture);
+            DateOfExpiry = date.ToString("dd.MM.yyyy");
+        }
     }
 
     private async Task LoadImageAsync(CSharpEmrtdPassport emrtdPassport)
     {
         await Task.Run(() =>
         {
-            byte[] bytes = emrtdPassport.FacePhoto.ToArray();
-
-            MainThread.BeginInvokeOnMainThread(() =>
+            if (emrtdPassport.FacePhoto != null)
             {
-                FacePhoto = ImageSource.FromStream(() => new MemoryStream(bytes));
-            });
+                byte[] bytes = emrtdPassport.FacePhoto.ToArray();
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    FacePhoto = ImageSource.FromStream(() => new MemoryStream(bytes));
+                });
+            }
         });
     }
 

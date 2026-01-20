@@ -27,8 +27,12 @@ namespace EmrtdConnectorMaui
             {
                 if (e.Success)
                 {
-                    CSharpEmrtdPassport emrtdPassport = EmrtdPassportMapper.ToCSharpEmrtdPassport(e.Result);
-                    Navigation.PushAsync(new ResultPage(emrtdPassport));
+                    var result = e.Result;
+                    if (result == null) return;
+
+                    var emrtdPassport = EmrtdPassportMapper.ToCSharpEmrtdPassport(result);
+                    if (emrtdPassport == null) return;
+                    Navigation?.PushAsync(new ResultPage(emrtdPassport));
                 }
             };
 #endif

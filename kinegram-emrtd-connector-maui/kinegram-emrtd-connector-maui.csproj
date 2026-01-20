@@ -1,16 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <!-- Exclude ALL -ktx packages that cause conflicts -->
+    <PackageReference Include="Xamarin.AndroidX.SavedState.SavedState.Ktx" Version="1.2.1.3"
+      ExcludeAssets="all" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.ViewModel.Ktx" Version="2.6.1.3"
+      ExcludeAssets="all" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="2.6.1.3"
+      ExcludeAssets="all" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData.Core.Ktx" Version="2.6.1.3"
+      ExcludeAssets="all" />
+    <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.6.0.1" ExcludeAssets="all" />
+    <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.7.2.1" ExcludeAssets="all" />
+  </ItemGroup>
+
   <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
-    <ProjectReference Include="..\kinegram-emrtd-connector-maui-ios\kinegram-emrtd-connector-maui-ios.csproj" />
+    <ProjectReference
+      Include="..\kinegram-emrtd-connector-maui-ios\kinegram-emrtd-connector-maui-ios.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
-    <!-- <EnableDefaultResourceItems>false</EnableDefaultResourceItems>
-    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems> -->
+    <TargetFrameworks>net9.0-android;net8.0-ios</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
     <OutputType>Exe</OutputType>
     <RootNamespace>EmrtdConnectorMaui</RootNamespace>
-    <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -20,28 +34,39 @@
 
     <!-- App Identifier -->
     <ApplicationId>com.kurzdigital.emrtd-connector-maui</ApplicationId>
+
+    <AndroidEnableJdkVersion>17</AndroidEnableJdkVersion>
+    <JavaSdkDirectory>$(JAVA_HOME_17_X64)</JavaSdkDirectory>
+
+    <NoWarn>$(NoWarn);CS8612</NoWarn>
+  </PropertyGroup>
+
+  <!-- Properties for both Debug and Release -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <SupportedOSPlatformVersion>26.0</SupportedOSPlatformVersion>
+    <RestoreAdditionalProjectSources>$(MSBuildProjectDirectory)\..\LocalNuGetPackages</RestoreAdditionalProjectSources>
   </PropertyGroup>
 
   <!-- Debug configuration for Android -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android' and '$(Configuration)' == 'Debug'">
+  <PropertyGroup
+    Condition="'$(TargetFramework)' == 'net9.0-android' and '$(Configuration)' == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <RestoreAdditionalProjectSources>$(MSBuildProjectDirectory)\..\LocalNuGetPackages</RestoreAdditionalProjectSources>
   </PropertyGroup>
 
-  <!-- <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android' and '$(Configuration)' ==
-  'Debug'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <!-- <ProjectReference
+    Include="..\kinegram-emrtd-connector-maui-android\kinegram-emrtd-connector-maui-android.csproj"
+    /> -->
     <PackageReference Include="kinegram-emrtd-connector-maui-android" Version="1.1.0" />
-  </ItemGroup> -->
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
-    <ProjectReference Include="..\kinegram-emrtd-connector-maui-android\kinegram-emrtd-connector-maui-android.csproj" />
   </ItemGroup>
 
   <!-- Release configuration for Android -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android' and '$(Configuration)' == 'Release'">
+  <PropertyGroup
+    Condition="'$(TargetFramework)' == 'net9.0-android' and '$(Configuration)' == 'Release'">
+    <SupportedOSPlatformVersion>26.0</SupportedOSPlatformVersion>
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
@@ -60,7 +85,8 @@
   </PropertyGroup>
 
   <!-- Release configuration for iPhone -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-ios' and '$(Configuration)' == 'Release'">
+  <PropertyGroup
+    Condition="'$(TargetFramework)' == 'net8.0-ios' and '$(Configuration)' == 'Release'">
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
     <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
@@ -70,7 +96,8 @@
 
   <ItemGroup>
     <!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg"
+      ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
     <!-- Splash Screen -->
     <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -126,7 +153,7 @@
     <AndroidResource Include="Platforms\Android\Resources\xml\nfc_tech_filter.xml" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('android'))">
     <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
@@ -141,20 +168,6 @@
       <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
-
-  <!-- <ItemGroup>
-    <EmbeddedResource Update="Resources\Locales\Strings.resx">
-      <Generator>MSBuild:Compile</Generator>
-      <StronglyTypedFileName>Resources\Locales\Strings.Designer.cs</StronglyTypedFileName>
-      <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
-      <StronglyTypedNamespace>EmrtdConnectorMaui.Resources.Locales</StronglyTypedNamespace>
-      <StronglyTypedClassName>LocaleStrings</StronglyTypedClassName>
-    </EmbeddedResource>
-
-    <EmbeddedResource Update="Resources\Locales\Strings.de.resx">
-      <DependentUpon>Strings.resx</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup> -->
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\Locales\Strings.resx">

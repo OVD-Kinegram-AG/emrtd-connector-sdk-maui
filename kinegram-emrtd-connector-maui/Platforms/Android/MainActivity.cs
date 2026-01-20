@@ -1,11 +1,9 @@
+#if ANDROID
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Android.Widget;
-using EmrtdConnectorAndroid;
-using Java.Lang;
+using AndroidX.Core.View;
 
 namespace EmrtdConnectorMaui.Platforms.Android
 {
@@ -19,6 +17,8 @@ namespace EmrtdConnectorMaui.Platforms.Android
 
         protected override void OnCreate(Bundle? savedInstanceState)
         {
+            Theme?.ApplyStyle(Resource.Style.OptOutEdgeToEdgeEnforcement, force: false);
+
             base.OnCreate(savedInstanceState);
         }
 
@@ -30,3 +30,4 @@ namespace EmrtdConnectorMaui.Platforms.Android
         }
     }
 }
+#endif

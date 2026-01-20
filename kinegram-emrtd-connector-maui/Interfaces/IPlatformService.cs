@@ -19,7 +19,7 @@ public interface IPlatformService
 #if ANDROID
 public class ReaderResultEventArgs : EventArgs
 {
-    public EmrtdPassport Result { get; set; }
+    public EmrtdPassport? Result { get; set; }
     public bool Success { get; set; }
 }
 #endif

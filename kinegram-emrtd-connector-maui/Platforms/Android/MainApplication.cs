@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿#if ANDROID
+using Android.App;
 using Android.Runtime;
 
 namespace EmrtdConnectorMaui
@@ -14,3 +15,4 @@ namespace EmrtdConnectorMaui
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
     }
 }
+#endif
