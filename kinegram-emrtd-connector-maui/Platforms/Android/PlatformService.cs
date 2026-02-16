@@ -43,8 +43,18 @@ public class PlatformService : IPlatformService
         var context = Platform.CurrentActivity;
         if (context == null) return;
 
+        var clientId = ValidationSettings.CLIENT_ID;
+        var validationId = Guid.NewGuid().ToString();
+        var serverUrl = ValidationSettings.VALIDATION_URI;
+
         var intent = new Intent(context, typeof(EmrtdConnectorActivity));
+
+        intent.PutExtra(PlatformConstants.CLIENT_ID, clientId);
+        intent.PutExtra(PlatformConstants.VALIDATION_ID_KEY, validationId);
+        intent.PutExtra(PlatformConstants.VALIDATION_URI, serverUrl);
+
         intent.PutExtra(PlatformConstants.CAN_KEY, can);
+
         context.StartActivityForResult(intent, RequestCode);
     }
 
@@ -53,7 +63,16 @@ public class PlatformService : IPlatformService
         var context = Platform.CurrentActivity;
         if (context == null) return;
 
+        var clientId = ValidationSettings.CLIENT_ID;
+        var validationId = Guid.NewGuid().ToString();
+        var serverUrl = ValidationSettings.VALIDATION_URI;
+
         var intent = new Intent(context, typeof(EmrtdConnectorActivity));
+
+        intent.PutExtra(PlatformConstants.CLIENT_ID, clientId);
+        intent.PutExtra(PlatformConstants.VALIDATION_ID_KEY, validationId);
+        intent.PutExtra(PlatformConstants.VALIDATION_URI, serverUrl);
+
         intent.PutExtra(PlatformConstants.DOCUMENT_NUMBER_KEY, documentNumber);
         intent.PutExtra(PlatformConstants.DATE_OF_BIRTH_KEY, dateOfBirth);
         intent.PutExtra(PlatformConstants.DATE_OF_EXPIRY_KEY, dateOfExpiry);
@@ -126,8 +145,16 @@ public class PlatformService : IPlatformService
             }
             else if (resultCode == Result.Canceled)
             {
-                Toast.MakeText(context, "Reader was cancelled", ToastLength.Long)?.Show();
-                _taskCompletionSource?.SetResult(null);
+                if (data != null && data.HasExtra(RETURN_ERROR))
+                {
+                    Toast.MakeText(context, data.GetStringExtra(RETURN_ERROR), ToastLength.Long)?.Show();
+                    _taskCompletionSource?.SetResult(null);
+                }
+                else
+                {
+                    Toast.MakeText(context, "Reader was cancelled", ToastLength.Long)?.Show();
+                    _taskCompletionSource?.SetResult(null);
+                }
             }
             else
             {
