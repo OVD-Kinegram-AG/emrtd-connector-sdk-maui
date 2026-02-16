@@ -28,8 +28,6 @@
 		</array>
 		<key>XSAppIconAssets</key>
 		<string>Assets.xcassets/appicon.appiconset</string>
-		<key>CFBundleIdentifier</key>
-		<string>de.lasse-tech.emrtd-connector-maui</string>
 		<key>NFCReaderUsageDescription</key>
 		<string>This app uses NFC to read eMRTD (passport) chips.</string>
 		<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>

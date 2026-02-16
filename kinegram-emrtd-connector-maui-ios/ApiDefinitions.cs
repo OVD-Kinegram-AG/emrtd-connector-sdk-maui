@@ -1,21 +1,39 @@
+using System;
+using System.ComponentModel;
 using Foundation;
 using ObjCRuntime;
 
-namespace EmrtdConnectorIos
+namespace EmrtdConnectorIos;
+
+delegate void EmrtdPassportCompletionHandler(
+		[NullAllowed] NSString result,
+		[NullAllowed] NSError error
+	);
+
+[BaseType(typeof(NSObject))]
+interface EmrtdConnectorObjCWrapper
 {
-    public delegate void KinegramEMRTDCompletionBlock([NullAllowed] string passportJson, [NullAllowed] NSError error);
+	// @objc public init?(serverURL: URL, validationId: String, clientId: String)
+	[Export("initWithServerURL:validationId:clientId:")]
+	NativeHandle Constructor(NSUrl serverURL, string validationId, string clientId);
 
-    [BaseType(typeof(NSObject))]
-    public interface KinegramEMRTDWrapper
-    {
-        [Export("initWithClientId:webSocketUrl:")]
-        [DesignatedInitializer]
-        public NativeHandle Constructor(string clientId, string url);
+	[Export("readPassportWithDocumentNumber:dateOfBirth:dateOfExpiry:validationId:httpHeaders:enableDiagnostics:completion:")]
+	void ReadPassport(
+				string documentNumber,
+				string dateOfBirth,
+				string dateOfExpiry,
+				string validationId,
+				[NullAllowed] NSDictionary<NSString, NSString> httpHeaders,
+				[NullAllowed] NSNumber enableDiagnostics,
+				EmrtdPassportCompletionHandler completion
+			);
 
-        [Export("readPassportWithDocumentNumber:dateOfBirth:dateOfExpiry:completion:")]
-        public void ReadPassport(string documentNumber, string dateOfBirth, string dateOfExpiry, KinegramEMRTDCompletionBlock completion);
-
-        [Export("readPassportWithCan:completion:")]
-        public void ReadPassportWithCan(string can, KinegramEMRTDCompletionBlock completion);
-    }
+	[Export("readPassportWithCan:validationId:httpHeaders:enableDiagnostics:completion:")]
+	void ReadPassport(
+				string can,
+				string validationId,
+				[NullAllowed] NSDictionary<NSString, NSString> httpHeaders,
+				[NullAllowed] NSNumber enableDiagnostics,
+				EmrtdPassportCompletionHandler completion
+			);
 }

@@ -168,61 +168,69 @@ public class ResultPageModel : INotifyPropertyChanged
     {
     }
 
-    public ResultPageModel(CSharpEmrtdPassport emrtdPassport)
+    public ResultPageModel(ValidationResult result)
     {
-        if (emrtdPassport == null || emrtdPassport.FacePhoto == null)
+        if (result == null || result.FacePhoto == null)
         {
             // TODO handle error
             return;
         }
 
-        if (emrtdPassport.MrzInfo == null)
+        if (result.MrzInfo == null)
         {
             // TODO handle error
             return;
         }
 
         // Don't block the UI
-        _ = LoadImageAsync(emrtdPassport);
+        _ = LoadImageAsync(result);
 
-        PrimaryIdentifier = emrtdPassport.MrzInfo.PrimaryIdentifier;
-        if (SecondaryIdentifier != null && emrtdPassport.MrzInfo.SecondaryIdentifier != null)
-            SecondaryIdentifier = string.Join(" ", emrtdPassport.MrzInfo.SecondaryIdentifier);
-        IssuingState = emrtdPassport.MrzInfo.IssuingState;
-        DocumentType = emrtdPassport.MrzInfo.DocumentType;
-        DocumentCode = emrtdPassport.MrzInfo.DocumentCode;
-        Nationality = emrtdPassport.MrzInfo.Nationality;
-        DocumentNumber = emrtdPassport.MrzInfo.DocumentNumber;
-        DateOfBirth = emrtdPassport.MrzInfo.DateOfBirth;
-        DateOfExpiry = emrtdPassport.MrzInfo.DateOfExpiry;
-        Gender = emrtdPassport.MrzInfo.Gender;
+        PrimaryIdentifier = result.MrzInfo.PrimaryIdentifier;
+        if (SecondaryIdentifier != null && result.MrzInfo.SecondaryIdentifier != null)
+            SecondaryIdentifier = string.Join(" ", result.MrzInfo.SecondaryIdentifier);
+        IssuingState = result.MrzInfo.IssuingState;
+        DocumentType = result.MrzInfo.DocumentType;
+        DocumentCode = result.MrzInfo.DocumentCode;
+        Nationality = result.MrzInfo.Nationality;
+        DocumentNumber = result.MrzInfo.DocumentNumber;
+        DateOfBirth = result.MrzInfo.DateOfBirth;
+        DateOfExpiry = result.MrzInfo.DateOfExpiry;
+        Gender = result.MrzInfo.Gender;
 
         DateTime date;
 
-        if (emrtdPassport.MrzInfo.DateOfBirth != null)
+        if (result.MrzInfo.DateOfBirth != null)
         {
-            date = DateTime.ParseExact(emrtdPassport.MrzInfo.DateOfBirth, "yyMMdd", CultureInfo.InvariantCulture);
+            date = DateTime.ParseExact(result.MrzInfo.DateOfBirth, "yyMMdd", CultureInfo.InvariantCulture);
             DateOfBirth = date.ToString("dd.MM.yyyy");
         }
 
-        if (emrtdPassport.MrzInfo.DateOfExpiry != null)
+        if (result.MrzInfo.DateOfExpiry != null)
         {
-            date = DateTime.ParseExact(emrtdPassport.MrzInfo.DateOfExpiry, "yyMMdd", CultureInfo.InvariantCulture);
+            date = DateTime.ParseExact(result.MrzInfo.DateOfExpiry, "yyMMdd", CultureInfo.InvariantCulture);
             DateOfExpiry = date.ToString("dd.MM.yyyy");
         }
     }
 
-    private async Task LoadImageAsync(CSharpEmrtdPassport emrtdPassport)
+    private async Task LoadImageAsync(ValidationResult result)
     {
         await Task.Run(() =>
         {
-            if (emrtdPassport.FacePhoto != null)
+            if (result.FacePhoto != null)
             {
-                byte[] bytes = emrtdPassport.FacePhoto.ToArray();
+                var base64 = result.FacePhoto;
+                base64 = base64?.TrimEnd('\0', '\r', '\n', ' ');
+
+                if (base64 == null)
+                {
+                    // TODO Handle error
+                    return;
+                }
+                byte[] photoBytes = Convert.FromBase64String(base64);
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    FacePhoto = ImageSource.FromStream(() => new MemoryStream(bytes));
+                    FacePhoto = ImageSource.FromStream(() => new MemoryStream(photoBytes));
                 });
             }
         });

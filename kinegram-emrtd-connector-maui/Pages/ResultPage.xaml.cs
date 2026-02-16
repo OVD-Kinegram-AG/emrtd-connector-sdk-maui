@@ -9,9 +9,9 @@ public partial class ResultPage : ContentPage
         InitializeComponent();
     }
 
-    public ResultPage(CSharpEmrtdPassport emrtdPassport)
+    public ResultPage(ValidationResult result)
     {
-        BindingContext = new ResultPageModel(emrtdPassport);
+        BindingContext = new ResultPageModel(result);
         InitializeComponent();
     }
 }

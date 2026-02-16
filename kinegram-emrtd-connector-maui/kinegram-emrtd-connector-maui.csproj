@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-android;net8.0-ios</TargetFrameworks>
+    <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
     <UseMaui>true</UseMaui>
     <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
     <OutputType>Exe</OutputType>
@@ -33,7 +33,7 @@
     <ApplicationTitle>eMRTD Connector MAUI</ApplicationTitle>
 
     <!-- App Identifier -->
-    <ApplicationId>com.kurzdigital.emrtd-connector-maui</ApplicationId>
+    <ApplicationId>de.lasse-tech.emrtd-connector-maui</ApplicationId>
 
     <AndroidEnableJdkVersion>17</AndroidEnableJdkVersion>
     <JavaSdkDirectory>$(JAVA_HOME_17_X64)</JavaSdkDirectory>
@@ -42,10 +42,25 @@
   </PropertyGroup>
 
   <!-- Properties for both Debug and Release -->
+  <!--
   <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
     <SupportedOSPlatformVersion>26.0</SupportedOSPlatformVersion>
-    <RestoreAdditionalProjectSources>$(MSBuildProjectDirectory)\..\LocalNuGetPackages</RestoreAdditionalProjectSources>
+  <RestoreAdditionalProjectSources>$(MSBuildProjectDirectory)\..\LocalNuGetPackages</RestoreAdditionalProjectSources>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <PackageReference Include="kinegram-emrtd-connector-maui-android" Version="1.1.0" />
+  </ItemGroup>
+   -->
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <ProjectReference
+      Include="..\kinegram-emrtd-connector-maui-android\kinegram-emrtd-connector-maui-android.csproj" />
+  </ItemGroup>
 
   <!-- Debug configuration for Android -->
   <PropertyGroup
@@ -55,13 +70,6 @@
     <Optimize>false</Optimize>
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
-    <!-- <ProjectReference
-    Include="..\kinegram-emrtd-connector-maui-android\kinegram-emrtd-connector-maui-android.csproj"
-    /> -->
-    <PackageReference Include="kinegram-emrtd-connector-maui-android" Version="1.1.0" />
-  </ItemGroup>
 
   <!-- Release configuration for Android -->
   <PropertyGroup
@@ -73,20 +81,20 @@
   </PropertyGroup>
 
   <!-- Debug configuration for iPhone -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-ios' and '$(Configuration)' == 'Debug'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-ios' and '$(Configuration)' == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
     <MtouchLink>None</MtouchLink>
     <IPhoneSimulator>false</IPhoneSimulator>
-    <!--<CodesignKey></CodesignKey>-->
-    <!--<CodesignProvision></CodesignProvision>-->
+    <CodesignKey>iPhone Developer: Lars Gossard (43Y8RFA8MU)</CodesignKey>
+    <CodesignProvision>eMRTD Connector MAUI Development</CodesignProvision>
   </PropertyGroup>
 
   <!-- Release configuration for iPhone -->
   <PropertyGroup
-    Condition="'$(TargetFramework)' == 'net8.0-ios' and '$(Configuration)' == 'Release'">
+    Condition="'$(TargetFramework)' == 'net9.0-ios' and '$(Configuration)' == 'Release'">
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
     <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
@@ -153,20 +161,12 @@
     <AndroidResource Include="Platforms\Android\Resources\xml\nfc_tech_filter.xml" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Contains('android'))">
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <!-- iOS specific references -->
-  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
-    <NativeReference Include="Platforms/iOS/Frameworks/KinegramEmrtdConnectorObjC.framework">
-      <Kind>Framework</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
