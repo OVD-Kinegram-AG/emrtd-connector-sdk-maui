@@ -17,7 +17,7 @@ You will need the following development software to get the demo app running fro
 >It is strongly recommended to install all software in the given order so Visual Studio Code can find the required Frameworks and SDKs right away.
 
 - [Git](https://git-scm.com/downloads)
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 - [XCode](https://developer.apple.com/xcode/)
 - [Microsoft OpenJDK 17.0](https://learn.microsoft.com/en-us/java/openjdk/install)
 - [Android Studio](https://developer.android.com/studio)
