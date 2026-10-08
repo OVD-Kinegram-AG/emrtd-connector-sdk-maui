@@ -150,6 +150,20 @@ public class ResultPageModel : INotifyPropertyChanged
         }
     }
 
+    private string? _certStatus;
+    public string? CertStatus
+    {
+        get => _certStatus;
+        set
+        {
+            if (_certStatus != value)
+            {
+                _certStatus = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     private ImageSource? _facePhoto;
     public ImageSource? FacePhoto
     {
@@ -196,6 +210,7 @@ public class ResultPageModel : INotifyPropertyChanged
         DateOfBirth = emrtdPassport.MrzInfo.DateOfBirth;
         DateOfExpiry = emrtdPassport.MrzInfo.DateOfExpiry;
         Gender = emrtdPassport.MrzInfo.Gender;
+        CertStatus = emrtdPassport.PassiveAuthenticationDetails?.Revocation?.CertStatus;
 
         DateTime date;
 

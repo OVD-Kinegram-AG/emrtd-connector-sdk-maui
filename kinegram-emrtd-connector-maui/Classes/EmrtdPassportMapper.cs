@@ -25,8 +25,24 @@ public static class EmrtdPassportMapper
                 DateOfExpiry = emrtdPassport.MrzInfo.DateOfExpiry,
                 Gender = emrtdPassport.MrzInfo.Gender
             },
-            FacePhoto = emrtdPassport.FacePhoto?.ToArray() ?? Array.Empty<byte>()
+            FacePhoto = emrtdPassport.FacePhoto?.ToArray() ?? Array.Empty<byte>(),
+            PassiveAuthenticationDetails = new PassiveAuthenticationDetails
+            {
+                Revocation = new Revocation
+                {
+                    CertStatus = ReadCertStatus(emrtdPassport)
+                }
+            }
         };
+    }
+
+    // Read from the JSON of the DocVal Service, which has the same names as on iOS
+    private static string? ReadCertStatus(EmrtdConnectorAndroid.EmrtdPassport emrtdPassport)
+    {
+        return emrtdPassport.ToJSON()
+            ?.OptJSONObject("passiveAuthenticationDetails")
+            ?.OptJSONObject("revocation")
+            ?.OptString("certStatus", null);
     }
 }
 #endif

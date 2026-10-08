@@ -8,11 +8,24 @@ public class CSharpEmrtdPassport
 {
     public MrzInfo? MrzInfo { get; set; }
     public byte[]? FacePhoto { get; set; }
+    public PassiveAuthenticationDetails? PassiveAuthenticationDetails { get; set; }
 
     public CSharpEmrtdPassport()
     {
         MrzInfo = new MrzInfo();
     }
+}
+
+public class PassiveAuthenticationDetails
+{
+    // Null if the DocVal Service is older than 1.19.1
+    public Revocation? Revocation { get; set; }
+}
+
+public class Revocation
+{
+    // "unrevoked", "revoked" or "undetermined"
+    public string? CertStatus { get; set; }
 }
 
 public class MrzInfo
