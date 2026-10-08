@@ -9,7 +9,7 @@
     <Title>Kinegram eMRTD Connector MAUI Android</Title>
     <Copyright>© 2026 KURZ Digital Solutions GmbH &amp; Co. KG</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>$(VersionPrefix)1.1.0</Version>
+    <Version>$(VersionPrefix)1.2.0</Version>
     <PackageOutputPath>$(MSBuildProjectDirectory)\..\LocalNuGetPackages</PackageOutputPath>
     <RootNamespace>EmrtdConnectorAndroid</RootNamespace>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AndroidMavenLibrary Include="com.kinegram.emrtd:emrtd-sdk-java" Version="3.0.9" />
+    <AndroidMavenLibrary Include="com.kinegram.emrtd:emrtd-sdk-java" Version="4.1.0" />
 
     <AndroidMavenLibrary Include="org.bouncycastle:bcprov-jdk18on" Version="1.83" Bind="False" />
     <AndroidMavenLibrary Include="org.bouncycastle:bcpkix-jdk18on" Version="1.83" Bind="False" />

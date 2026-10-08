@@ -60,7 +60,7 @@
     <!-- <ProjectReference
     Include="..\kinegram-emrtd-connector-maui-android\kinegram-emrtd-connector-maui-android.csproj"
     /> -->
-    <PackageReference Include="kinegram-emrtd-connector-maui-android" Version="1.1.0" />
+    <PackageReference Include="kinegram-emrtd-connector-maui-android" Version="1.2.0" />
   </ItemGroup>
 
   <!-- Release configuration for Android -->
