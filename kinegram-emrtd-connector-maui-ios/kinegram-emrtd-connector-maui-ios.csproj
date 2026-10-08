@@ -13,7 +13,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Native\" />
+      <NativeReference Include="Native/KinegramEmrtdConnector.xcframework">
+        <Kind>Framework</Kind>
+        <SmartLink>False</SmartLink>
+      </NativeReference>
     </ItemGroup>
 
     <ItemGroup>

@@ -5,6 +5,7 @@ using Org.Json;
 using EmrtdConnectorAndroid;
 #elif IOS
 using EmrtdConnectorIos;
+using Foundation;
 using Newtonsoft.Json;
 #endif
 
@@ -51,8 +52,9 @@ namespace EmrtdConnectorMaui
 #if ANDROID
                 PlatformService.Instance.NavigateToReader(strCan);
 #elif IOS
-                var wrapper = new KinegramEMRTDWrapper(ValidationSettings.CLIENT_ID, ValidationSettings.VALIDATION_URI);
-                wrapper.ReadPassportWithCan(strCan, (passportJson, error) =>
+                var validationId = Guid.NewGuid().ToString();
+                var wrapper = new EmrtdConnectorObjCWrapper(new NSUrl(ValidationSettings.VALIDATION_URI), validationId, ValidationSettings.CLIENT_ID);
+                wrapper.ReadPassportWithCan(strCan, validationId, null, null, (passportJson, error) => MainThread.BeginInvokeOnMainThread(() =>
                 {
                     if (error != null)
                     {
@@ -65,7 +67,7 @@ namespace EmrtdConnectorMaui
                         CSharpEmrtdPassport emrtdPassport = JsonConvert.DeserializeObject<CSharpEmrtdPassport>(passportJson);
                         Navigation.PushAsync(new ResultPage(emrtdPassport));
                     }
-                });
+                }));
 #endif
             };
 
@@ -81,8 +83,9 @@ namespace EmrtdConnectorMaui
 #if ANDROID
                 PlatformService.Instance.NavigateToReader(strDocumentNumber, strDateOfBirth, strDateOfExpiry);
 #elif IOS
-                var wrapper = new KinegramEMRTDWrapper(ValidationSettings.CLIENT_ID, ValidationSettings.VALIDATION_URI);
-                wrapper.ReadPassport(strDocumentNumber, strDateOfBirth, strDateOfExpiry, (passportJson, error) =>
+                var validationId = Guid.NewGuid().ToString();
+                var wrapper = new EmrtdConnectorObjCWrapper(new NSUrl(ValidationSettings.VALIDATION_URI), validationId, ValidationSettings.CLIENT_ID);
+                wrapper.ReadPassport(strDocumentNumber, strDateOfBirth, strDateOfExpiry, validationId, null, null, (passportJson, error) => MainThread.BeginInvokeOnMainThread(() =>
                 {
                     if (error != null)
                     {
@@ -95,7 +98,7 @@ namespace EmrtdConnectorMaui
                         CSharpEmrtdPassport emrtdPassport = JsonConvert.DeserializeObject<CSharpEmrtdPassport>(passportJson);
                         Navigation.PushAsync(new ResultPage(emrtdPassport));
                     }
-                });
+                }));
 #endif
             };
         }

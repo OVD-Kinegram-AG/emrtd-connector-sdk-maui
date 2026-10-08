@@ -82,10 +82,8 @@ This will create the `kinegram-emrtd-connector-maui-android.x.x.x.nupkg` which i
 
 ## Example 
 
-## Customizing changes to the eMRTD iOS Connector SDK
+## Updating the eMRTD iOS Connector SDK
 
-1. Clone [emrtd-connector-sdk-ios](https://github.com/OVD-Kinegram-AG/emrtd-connector-sdk-ios)
-2. Open the project in XCode
-3. Apply your changes to the SDK library
-4. Copy `emrtd-connector-sdk-ios/ObjCFramework/Distribution/KinegramEmrtdConnectorObjC.xcframework` to `kinegram-emrtd-connector-maui/kinegram-emrtd-connector-maui-ios/Native`
-5. Make sure you adjust `ApiDefinitions.cs` and `StructsAndEnums.cs` in `kinegram-emrtd-connector-maui/kinegram-emrtd-connector-maui-ios` if you made modifications to the respective calls
+1. Download the release of [emrtd-connector-sdk-ios](https://github.com/OVD-Kinegram-AG/emrtd-connector-sdk-ios)
+2. Copy `emrtd-connector-sdk-ios/Framework/KinegramEmrtdConnector.xcframework` to `kinegram-emrtd-connector-maui/kinegram-emrtd-connector-maui-ios/Native`
+3. The binding uses the Objective-C class `EmrtdConnectorObjCWrapper` of the framework. If its methods changed, adjust `ApiDefinitions.cs` in `kinegram-emrtd-connector-maui/kinegram-emrtd-connector-maui-ios`

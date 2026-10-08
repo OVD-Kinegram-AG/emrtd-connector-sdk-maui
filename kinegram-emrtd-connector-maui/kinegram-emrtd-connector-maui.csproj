@@ -161,14 +161,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <!-- iOS specific references -->
-  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
-    <NativeReference Include="Platforms/iOS/Frameworks/KinegramEmrtdConnectorObjC.framework">
-      <Kind>Framework</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-  </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Resources\Locales\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
