@@ -85,14 +85,9 @@ namespace EmrtdConnectorMaui
                             return;
                         }
 
-                        if (OperatingSystem.IsAndroidVersionAtLeast(33))
-                        {
-                            emrtdPassport = data.GetParcelableExtra(RETURN_DATA, Class.FromType(typeof(EmrtdPassport))).JavaCast<EmrtdPassport>();
-                        }
-                        else
-                        {
-                            emrtdPassport = data.GetParcelableExtra(RETURN_DATA).JavaCast<EmrtdPassport>();
-                        }
+                        // The reader returns the passport as JSON string
+                        var json = data.GetStringExtra(RETURN_DATA);
+                        emrtdPassport = json == null ? null : new EmrtdPassport(new Org.Json.JSONObject(json));
 
                         if (emrtdPassport == null)
                         {
