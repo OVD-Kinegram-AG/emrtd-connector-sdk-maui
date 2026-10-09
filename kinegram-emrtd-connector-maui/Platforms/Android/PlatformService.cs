@@ -17,7 +17,7 @@ namespace EmrtdConnectorMaui
 
         private static readonly int RequestCode = 0x6A5;
         private static readonly string RETURN_DATA = "DATA";
-        private static readonly string RETURN_ERROR = "JSON_ERROR";
+        private static readonly string RETURN_ERROR = "ERROR";
 
         public static PlatformService Instance
         {
